@@ -19,7 +19,6 @@
  *  configurations
  *
  */
-
 return array(
     'active' => 'mysqli',
     /**
@@ -48,14 +47,17 @@ return array(
         'type'   => 'mysqli',
         'connection' => array(
             'hostname'   => 'localhost',
-            'database'   => '',
+            'database'   => 'studydata',
+            'port'       => '8888',
             'username'   => 'root',
             'password'   => 'root',
-            'persistent' => FALSE,
+            'persistent' => false,
+            'compress'   => false,
         ),
         'identifier'     => '`',
         'table_prefix' => '',
         'charset'      => 'utf8',
+        'enable_cache' => true,
         'profiling'    => true,
     ),
 );

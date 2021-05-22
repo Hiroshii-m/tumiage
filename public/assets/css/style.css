@@ -742,15 +742,21 @@ i {
     min-width: 300px;
   }
 }
+.c-form table {
+  width: 100%;
+}
 .c-form__title {
   font-size: 28px;
   text-align: center;
-  margin-bottom: 15px;
+  margin-bottom: 30px;
 }
 @media screen and (max-width: 768px) {
   .c-form__title {
     font-size: 24px;
   }
+}
+.c-form__table {
+  margin: 0 auto;
 }
 .c-form__label {
   display: block;
@@ -888,6 +894,7 @@ i {
 
 .u-err-msg {
   color: #CF737A;
+  margin-bottom: 20px;
 }
 
 .u-err-input {
