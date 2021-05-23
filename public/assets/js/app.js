@@ -84,8 +84,8 @@ window.addEventListener("DOMContentLoaded", function() {
     // フラッシュメッセージの動き
     if($showMsg !== null) {
         if($showMsg.textContent.replace(/^[\s　]+|[\s　]+$/g, "").length) {
-            setTimeout(function(){ $showMsg.classList.add('active'); }, 10);
-            setTimeout(function(){ $showMsg.classList.remove('active'); }, 8000);
+            setTimeout(function(){ $showMsg.classList.add('active'); }, 0);
+            setTimeout(function(){ $showMsg.classList.remove('active'); }, 5000);
         }
     }
     window.addEventListener("scroll", function() {
