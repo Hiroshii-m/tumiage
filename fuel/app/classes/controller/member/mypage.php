@@ -1,12 +1,9 @@
 <?php
 
-class Controller_Member_Mypage extends Controller
+class Controller_Member_Mypage extends Controller_Member
 {
     public function action_index()
     {
-        if(!Auth::check()){
-            Response::redirect('auth/login');
-        }
         $view = View::forge('template/index');
         $view->set('head', View::forge('template/head'));
         $view->set('header', View::forge('template/header'));
