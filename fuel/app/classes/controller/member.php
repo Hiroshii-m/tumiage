@@ -6,7 +6,8 @@ class Controller_Member extends Controller
     {
         // ログイン認証
         if(!Auth::check()){
-            Response::redirect('auth/login');
+            // ログインしていない場合、ログインページへ遷移
+            Response::redirect('login');
         }
     }
 }

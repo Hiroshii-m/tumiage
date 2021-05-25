@@ -1,6 +1,6 @@
 <?php
 
-class Controller_Auth_Login extends Controller
+class Controller_Login extends Controller
 {
     const PASS_LENGTH_MIN = 6;
     const PASS_LENGTH_MAX = 20;
