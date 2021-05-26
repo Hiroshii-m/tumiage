@@ -6,11 +6,10 @@ class Controller_Member_Registstack extends Controller_Member
     {
         $error = '';
         $formData = '';
-        $data['username'] = Auth::get_screen_name(); // ユーザー名を取得
-        $data['user_id'] = Auth::get_user_id(); // 現在ログインしているユーザーIDを取得
+        $data = array();
 
         $form = Fieldset::forge('registform');
-        $form->add('create_at', '日付', array('class'=>'c-form__input', 'type'=>'date', 'value'=>date('Y-m-d')))
+        $form->add('created_at', '日付', array('class'=>'c-form__input', 'type'=>'date', 'value'=>date('Y-m-d')))
             ->add_rule('required');
         $form->add('text_num', '打ち込んだ文字数', array('class'=>'c-form__input', 'type'=>'number'))
             ->add_rule('required')
@@ -22,15 +21,35 @@ class Controller_Member_Registstack extends Controller_Member
             // バリデーションを実行
             if($val->run()){
                 $formData = $val->validated();
-                $formData['user_id'] = $data['user_id'];
-                // DBへ登録
-                $post = \Model\Stack::forge(); // Model_Stackオブジェクトを生成
-                $post->set($formData); // インスタンスに値の配列をセット
-                $post->save(); // レコードを挿入または更新します
+                // 登録する項目を変数に格納
+                $data['user_id'] = Arr::get(Auth::get_user_id(), 1);
+                $data['created_at'] = $formData['created_at'];
+                $data['text_num'] = $formData['text_num'];
+                // DBにすでに登録されているか判定
+                $post = \Model\Stack::find(array(
+                    'select' => array('id', 'user_id', 'text_num', 'created_at'),
+                    'where' => array(
+                        'user_id' => $data['user_id'],
+                        'created_at' => $formData['created_at'],
+                    ),
+                ));
+                if(!empty($post)){
+                    // データ更新の準備
+                    $post = $post[0];
+                    $post->text_num = $data['text_num'];
+                }else{
+                    // データ挿入準備
+                    $post = \Model\Stack::forge(); // Model_Stackオブジェクトを生成
+                    $post->set($data); // インスタンスに値の配列をセット
+                }
+                $post->save(); // レコードを挿入または更新をします
+                Session::set_flash('sucMsg', 'データ登録/更新に成功しました。');
+                // マイページへ遷移
+                Response::redirect('member/mypage');
             // バリデーション失敗
             }else{
-                $error = $val->error;
-                Session::set_flash('errMsg', '登録に失敗しました。時間を置いてからお試しください。');
+                $error = $val->error();
+                Session::set_flash('errMsg', 'データ登録/更新に失敗しました。時間を置いてからお試しください。');
             }
         }
         // 変数として、ビューに割り当てる

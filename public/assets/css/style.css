@@ -556,15 +556,6 @@ i {
     opacity: 0;
   }
 }
-#l-blog {
-  padding: 80px 0;
-  background: #fffde8;
-}
-@media screen and (max-width: 768px) {
-  #l-blog {
-    padding: 40px 0;
-  }
-}
 
 #l-header {
   height: 60px;
@@ -572,15 +563,6 @@ i {
   background: #d4f1d3;
   position: relative;
   z-index: 2;
-}
-
-#l-region {
-  padding: 0 0 80px 0;
-}
-@media screen and (max-width: 768px) {
-  #l-region {
-    padding: 40px 0;
-  }
 }
 
 #l-sidebar {
@@ -692,7 +674,7 @@ i {
 
 .c-sidebar {
   width: 250px;
-  background: #fff;
+  background: #eeeeee;
 }
 @media screen and (max-width: 1200px) {
   .c-sidebar {
@@ -793,7 +775,7 @@ i {
 }
 .c-form__areaDrop {
   display: block;
-  background: #e2e2e2;
+  background: #eeeeee;
   min-width: 150px;
   width: 30%;
   height: 150px;

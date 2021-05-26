@@ -42,9 +42,12 @@ class Controller_Signup extends Controller
                 $formData = $val->validated();
                 $auth = Auth::instance();
                 if($auth->create_user($formData['username'], $formData['password'], $formData['email'])){
+                    $auth->login($formData['username'], $formData['password']);
                     Session::set_flash('sucMsg', 'ユーザー登録に成功しました。');
                     // マイページへ遷移
                     Response::redirect('member/mypage');
+                }else{
+                    Session::set_flash('errMsg', 'ユーザー登録に失敗しました。時間を置いてから、試してください。');
                 }
             }else{
                 $error = $val->error();
