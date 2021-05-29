@@ -600,6 +600,9 @@ i {
     padding-top: 20px;
   }
 }
+#l-news {
+  margin-bottom: 40px;
+}
 
 .c-footer {
   padding-top: 15px;
@@ -652,11 +655,10 @@ i {
 }
 
 .c-container__tit {
-  font-size: 28px;
-  margin: 0 0 40px 0;
-  padding: 20px;
+  font-size: 24px;
+  padding: 0 20px;
   background: #d4f1d3;
-  border-left: 12px solid #ee734e;
+  border-left: 12px solid #6eee4e;
 }
 @media screen and (max-width: 414px) {
   .c-container__tit {
@@ -674,7 +676,7 @@ i {
 
 .c-sidebar {
   width: 250px;
-  background: #eeeeee;
+  background: #f1f1f1;
 }
 @media screen and (max-width: 1200px) {
   .c-sidebar {
@@ -775,7 +777,7 @@ i {
 }
 .c-form__areaDrop {
   display: block;
-  background: #eeeeee;
+  background: #f1f1f1;
   min-width: 150px;
   width: 30%;
   height: 150px;
@@ -823,6 +825,15 @@ i {
   opacity: 0.6;
 }
 
+.c-news__body {
+  width: 100%;
+  padding: 5px 20px;
+  background: #f1f1f1;
+}
+.c-news__date {
+  padding-right: 20px;
+}
+
 .p-flash {
   width: 100%;
   height: 30px;
@@ -836,6 +847,35 @@ i {
 .p-flash.active {
   top: 60px;
   transition: all 1s;
+}
+
+/* マイページの積み上げ部分 */
+.p-stack {
+  background: #f1f1f1;
+  padding-bottom: 50px;
+}
+.p-stack__body {
+  margin: 30px 0;
+}
+.p-stack__term {
+  text-align: center;
+  margin-top: 20px;
+  font-weight: bold;
+}
+.p-stack__head {
+  border-bottom: 1px solid #444;
+}
+.p-stack__table {
+  background: #fff;
+  border: 1px solid #444;
+}
+.p-stack__cell {
+  border: 1px solid #444;
+  padding: 5px;
+}
+.p-stack__area {
+  display: flex;
+  justify-content: space-around;
 }
 
 .u-upArrow {
