@@ -18,7 +18,7 @@
                     <h2 class="c-container__tit">積み上げデータ</h2>
                     <p class="p-stack__term">
                         <span><i class="fas fa-chevron-left"></i></span>
-                        <span class="p-stack__head">2021年5月<?=date('Y年m月')?></span>
+                        <span class="p-stack__head"><?=date('Y年m月')?></span>
                         <span><i class="fas fa-chevron-right"></i></span>
                     </p>
                     <div class="p-stack__body">

@@ -12,13 +12,31 @@ CREATE TABLE `users`(
     `delete_flg` BOOLEAN DEFAULT 0 NOT NULL,
     `created_at` INT(11) NOT NULL
 )ENGINE=INNODB DEFAULT CHARSET=utf8;
--- テーブル名 textnum
-CREATE TABLE `textnum`(
+-- テーブル名 tdata
+CREATE TABLE `tdata`(
     `id` INT(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
     `user_id` INT(11) NOT NULL,
     `text_num` INT(11) DEFAULT 0 NOT NULL,
     `delete_flg` BOOLEAN DEFAULT 0 NOT NULL,
     `created_at` DATE NOT NULL,
+    `updated_at` TIMESTAMP NOT NULL
+)ENGINE=INNODB DEFAULT CHARSET=utf8;
+-- テーブル名 mdata
+CREATE TABLE `mdata`(
+    `id` INT(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `user_id` INT(11) NOT NULL,
+    `month_sum` INT(11) DEFAULT 0 NOT NULL,
+    `delete_flg` BOOLEAN DEFAULT 0 NOT NULL,
+    `created_at` VARCHAR(7) NOT NULL,
+    `updated_at` TIMESTAMP NOT NULL
+)ENGINE=INNODB DEFAULT CHARSET=utf8;
+-- テーブル名 ydata
+CREATE TABLE `ydata`(
+    `id` INT(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `user_id` INT(11) NOT NULL,
+    `year_sum` INT(11) DEFAULT 0 NOT NULL,
+    `delete_flg` BOOLEAN DEFAULT 0 NOT NULL,
+    `created_at` VARCHAR(4) NOT NULL,
     `updated_at` TIMESTAMP NOT NULL
 )ENGINE=INNODB DEFAULT CHARSET=utf8;
 -- テーブル名 record

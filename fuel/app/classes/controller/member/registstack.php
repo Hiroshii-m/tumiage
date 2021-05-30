@@ -28,63 +28,99 @@ class Controller_Member_Registstack extends Controller_Member
                 $formData = $val->validated();
                 // 登録する項目を変数に格納
                 $data['user_id'] = Arr::get(Auth::get_user_id(), 1);
-                $data['created_at'] = $formData['created_at'];
                 $data['text_num'] = $formData['text_num'];
+                $data['created_at'] = $formData['created_at'];
                 // 入力したテキストの改行コードをTwitter用に置き換える
                 $content = str_replace(array("\r\n", "\r", "\n"), '%0a', $formData['content']);
+                $month_date = date('Y-m', strtotime($data['created_at']));
+                $year_date = date('Y', strtotime($data['created_at']));
+                // 今月・今年の日数を取得
+                $month_count = date('t', strtotime($data['created_at']));
+                $feb = date('Y', strtotime($data['created_at'])).'-02-01';
+                $year_count = 337 + date('t', strtotime($feb));
+                $mdata['user_id'] = $data['user_id'];
+                $mdata['created_at'] = date('Y-m', strtotime($data['created_at']));
+                $ydata['user_id'] = $data['user_id'];
+                $ydata['created_at'] = date('Y', strtotime($data['created_at']));
 
-                // 登録した年初末日を取得
-                $new_day = date('Y', strtotime($data['created_at'])).'-01-01';
-                $last_day = date('Y', strtotime($data['created_at'])).'-12-31';
-                // 登録されているデータを取得
-                $post = \Model\Stack::find(array(
-                    'select' => array('id', 'user_id', 'text_num', 'created_at'),
-                    'where' => array(
-                        'user_id' => $data['user_id'],
-                        array('created_at', 'between', array($new_day,$last_day)),
-                        'delete_flg' => 0
-                    ),
-                ));
-                // 今日と1月分のデータを取得
-                $this_month = date('Y-m', strtotime($data['created_at']));
-                $month_sum = 0;
-                $year_sum = 0;
-                foreach($post as $key => $val){
-                    // 今日のデータを格納
-                    if($post[$key]->created_at === $data['created_at']){
-                        $post_today = $post[$key];
+                try {
+                    // DBに本日登録したデータがあるか調べる
+                    $post_today = \Model\Stack::find(array(
+                        'select' => array('text_num', 'created_at'),
+                        'where' => array(
+                            'user_id' => $data['user_id'],
+                            'created_at' => $data['created_at'],
+                            'delete_flg' => 0
+                        )
+                    ));
+                    $post_today = (!empty($post_today[0])) ? $post_today[0] : '';
+                    
+                    // 月、年から合計文字数を取得
+                    $post_month = \Model\Mdata::find(array(
+                        'select' => array('month_sum'),
+                        'where' => array(
+                            'user_id' => $data['user_id'],
+                            'created_at' => $month_date,
+                            'delete_flg' => 0
+                        )
+                    ));
+                    $post_month = (!empty($post_month[0])) ? $post_month[0] : '';
+                    $post_year = \Model\Ydata::find(array(
+                        'select' => array('year_sum'),
+                        'where' => array(
+                            'user_id' => $data['user_id'],
+                            'created_at' => $year_date,
+                            'delete_flg' => 0
+                        )
+                    ));
+                    $post_year = (!empty($post_year[0])) ? $post_year[0] : '';
+    
+                    // 本日登録したデータがある場合
+                    if(!empty($post_today)){
+                        $textnum_update = $data['text_num'] - $post_today->text_num; // (今回登録した文字数ー前回登録した文字数)
+                        $post_today->text_num = $data['text_num'];
+                    // 本日登録したデータがない場合
+                    }else{
+                        $textnum_update = $data['text_num']; // 今回登録した文字数
+                        $post_today = \Model\Stack::forge(); // Model_Stackのオブジェクトを生成
+                        $post_today->set($data); // インスタンスに値の配列をセット
                     }
-                    // 今月の合計文字数を計算
-                    if(date('Y-m', strtotime($post[$key]->created_at)) === $this_month){
-                        $month_data[] = $post[$key];
-                        $month_sum += $post[$key]->text_num;
+                    // Log::debug(print_r($data, true));
+                    $post_today->save();
+                    $mdata['month_sum'] = (!empty($post_month->month_sum)) ? $post_month->month_sum + $textnum_update : $textnum_update;
+                    // 月データがある場合
+                    if(!empty($post_month)){
+                        // 月データ（月文字数＋今回の文字数ー前回登録した文字数）を更新
+                        $post_month->month_sum = $mdata['month_sum'];
+                    // 月データない場合
+                    }else{
+                        // 月データ（月文字数＋今回の文字数）を登録
+                        $post_month = \Model\Mdata::forge();
+                        $post_month->set($mdata);
                     }
-                    // 今年の合計文字数を計算
-                    $year_sum += $post[$key]->text_num;
+                    $post_month->save();
+                    $ydata['year_sum'] = (!empty($post_year->year_sum)) ? $post_year->year_sum + $textnum_update : $textnum_update;
+                    // 年データがある場合
+                    if(!empty($post_year)){
+                        // 年データ（年文字数＋今回の文字数ー前回登録した文字数）を更新
+                        $post_year->year_sum = $ydata['year_sum'];
+                    // 年データがない場合
+                    }else{
+                        // 年データ（年文字数＋今回の文字数）を登録
+                        $post_year = \Model\Ydata::forge();
+                        $post_year->set($ydata);
+                    }
+                    $post_year->save();
+
+                    Session::set_flash('sucMsg', 'データ登録/更新に成功しました。');
+                    $url = 'https://twitter.com/intent/tweet?text='.date('m月d日', strtotime($data['created_at'])).'%0a本日：'.$data['text_num'].'文字%0a月平均：'.($mdata['month_sum']/$month_count).'文字%0a月合計：'.$mdata['month_sum'].'文字%0a年平均：'.($ydata['year_sum']/$year_count).'文字%0a年合計：'.$ydata['year_sum'].'文字%0a%0a'.$content;
+                    // Twitterへ投稿
+                    Response::redirect($url);
+                }catch(Exception $e){
+                    $e->error_log('エラーが発生しました。');
                 }
-                // 今月のデータのレコード数を格納
-                $month_count = count($month_data);
-                // 今月の平均文字数を計算
-                $month_average = round($month_sum/$month_count, 2);
-                // 今年のレコード数を格納
-                $year_count = count($post);
-                // 今年の平均文字数を計算
-                $year_average = round($year_sum/$year_count, 2);
+
                 
-                if(!empty($post_today)){
-                    // データ更新の準備　postからcreated_atの日付だけ変更
-                    // $post = $post[0];
-                    $post_today->text_num = $data['text_num'];
-                }else{
-                    // データ挿入準備
-                    $post_today = \Model\Stack::forge(); // Model_Stackオブジェクトを生成
-                    $post_today->set($data); // インスタンスに値の配列をセット
-                }
-                $post_today->save(); // レコードを挿入または更新をします
-                Session::set_flash('sucMsg', 'データ登録/更新に成功しました。');
-                $url = 'https://twitter.com/intent/tweet?text='.date('m月d日', strtotime($data['created_at'])).'%0a本日：'.$data['text_num'].'文字%0a月平均：'.$month_average.'文字%0a月合計：'.$month_sum.'文字%0a年平均：'.$year_average.'文字%0a年合計：'.$year_sum.'文字%0a%0a'.$content;
-                // Twitterへ投稿
-                Response::redirect($url);
             // バリデーション失敗
             }else{
                 $error = $val->error();
