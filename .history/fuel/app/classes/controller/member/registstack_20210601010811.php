@@ -76,6 +76,7 @@ class Controller_Member_Registstack extends Controller_Member
                         )
                     ));
                     $post_year = (!empty($post_year[0])) ? $post_year[0] : '';
+                    Log::debug(print_r($post_year, true));
     
                     // 本日登録したデータがある場合
                     if(!empty($post_today)){
@@ -113,10 +114,9 @@ class Controller_Member_Registstack extends Controller_Member
                     }
                     $post_year->save();
 
-                    $rst = DB::commit_transaction(); // transactionが成功した時、trueが格納される。
+                    $rst = DB::commit_transaction();
                 }catch(Exception $e){
                     DB::rollback_transaction();
-                    
                     throw $e;
                 }
 

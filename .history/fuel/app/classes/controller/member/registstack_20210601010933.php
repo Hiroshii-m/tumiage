@@ -116,7 +116,6 @@ class Controller_Member_Registstack extends Controller_Member
                     $rst = DB::commit_transaction(); // transactionが成功した時、trueが格納される。
                 }catch(Exception $e){
                     DB::rollback_transaction();
-                    
                     throw $e;
                 }
 

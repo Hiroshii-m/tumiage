@@ -42,7 +42,6 @@ class Controller_Member_Registstack extends Controller_Member
                 $mdata['created_at'] = date('Y-m', strtotime($data['created_at']));
                 $ydata['user_id'] = $data['user_id'];
                 $ydata['created_at'] = date('Y', strtotime($data['created_at']));
-                $rst = false; // transactionの結果を初期化
 
                 try{
                     DB::start_transaction();
@@ -76,6 +75,7 @@ class Controller_Member_Registstack extends Controller_Member
                         )
                     ));
                     $post_year = (!empty($post_year[0])) ? $post_year[0] : '';
+                    Log::debug(print_r($post_year, true));
     
                     // 本日登録したデータがある場合
                     if(!empty($post_today)){
@@ -113,10 +113,9 @@ class Controller_Member_Registstack extends Controller_Member
                     }
                     $post_year->save();
 
-                    $rst = DB::commit_transaction(); // transactionが成功した時、trueが格納される。
+                    $rst = DB::commit_transaction();
                 }catch(Exception $e){
                     DB::rollback_transaction();
-                    
                     throw $e;
                 }
 

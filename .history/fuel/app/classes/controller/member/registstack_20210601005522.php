@@ -42,13 +42,12 @@ class Controller_Member_Registstack extends Controller_Member
                 $mdata['created_at'] = date('Y-m', strtotime($data['created_at']));
                 $ydata['user_id'] = $data['user_id'];
                 $ydata['created_at'] = date('Y', strtotime($data['created_at']));
-                $rst = false; // transactionの結果を初期化
 
                 try{
                     DB::start_transaction();
                     // DBに本日登録したデータがあるか調べる
                     $post_today = \Model\Stack::find(array(
-                        'select' => array('id', 'user_id', 'text_num', 'created_at'),
+                        'select' => array('text_num', 'created_at'),
                         'where' => array(
                             'user_id' => $data['user_id'],
                             'created_at' => $data['created_at'],
@@ -59,7 +58,7 @@ class Controller_Member_Registstack extends Controller_Member
                     
                     // 月、年から合計文字数を取得
                     $post_month = \Model\Mdata::find(array(
-                        'select' => array('id', 'user_id', 'month_sum', 'created_at'),
+                        'select' => array('month_sum'),
                         'where' => array(
                             'user_id' => $data['user_id'],
                             'created_at' => $month_date,
@@ -68,7 +67,7 @@ class Controller_Member_Registstack extends Controller_Member
                     ));
                     $post_month = (!empty($post_month[0])) ? $post_month[0] : '';
                     $post_year = \Model\Ydata::find(array(
-                        'select' => array('id', 'user_id', 'year_sum', 'created_at'),
+                        'select' => array('year_sum'),
                         'where' => array(
                             'user_id' => $data['user_id'],
                             'created_at' => $year_date,
@@ -102,6 +101,7 @@ class Controller_Member_Registstack extends Controller_Member
                     $post_month->save();
                     $ydata['year_sum'] = (!empty($post_year->year_sum)) ? $post_year->year_sum + $textnum_update : $textnum_update;
                     // 年データがある場合
+                    Log::debug(print_r($ydata, true));
                     if(!empty($post_year)){
                         // 年データ（年文字数＋今回の文字数ー前回登録した文字数）を更新
                         $post_year->year_sum = $ydata['year_sum'];
@@ -113,19 +113,16 @@ class Controller_Member_Registstack extends Controller_Member
                     }
                     $post_year->save();
 
-                    $rst = DB::commit_transaction(); // transactionが成功した時、trueが格納される。
+                    DB::commit_transaction();
                 }catch(Exception $e){
                     DB::rollback_transaction();
-                    
                     throw $e;
                 }
 
-                if($rst === true){
-                    Session::set_flash('sucMsg', 'データ登録/更新に成功しました。');
-                    $url = 'https://twitter.com/intent/tweet?text='.date('m月d日', strtotime($data['created_at'])).'%0a本日：'.$data['text_num'].'文字%0a月平均：'.round($mdata['month_sum']/$month_count, 2).'文字%0a月合計：'.$mdata['month_sum'].'文字%0a年平均：'.round($ydata['year_sum']/$year_count, 2).'文字%0a年合計：'.$ydata['year_sum'].'文字%0a%0a'.$content;
-                    // Twitterへ投稿
-                    Response::redirect($url);
-                }
+                Session::set_flash('sucMsg', 'データ登録/更新に成功しました。');
+                $url = 'https://twitter.com/intent/tweet?text='.date('m月d日', strtotime($data['created_at'])).'%0a本日：'.$data['text_num'].'文字%0a月平均：'.round($mdata['month_sum']/$month_count, 2).'文字%0a月合計：'.$mdata['month_sum'].'文字%0a年平均：'.round($ydata['year_sum']/$year_count, 2).'文字%0a年合計：'.$ydata['year_sum'].'文字%0a%0a'.$content;
+                // Twitterへ投稿
+                Response::redirect($url);
                 
             // バリデーション失敗
             }else{

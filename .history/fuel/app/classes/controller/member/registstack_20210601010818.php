@@ -113,10 +113,9 @@ class Controller_Member_Registstack extends Controller_Member
                     }
                     $post_year->save();
 
-                    $rst = DB::commit_transaction(); // transactionが成功した時、trueが格納される。
+                    $rst = DB::commit_transaction();
                 }catch(Exception $e){
                     DB::rollback_transaction();
-                    
                     throw $e;
                 }
 
