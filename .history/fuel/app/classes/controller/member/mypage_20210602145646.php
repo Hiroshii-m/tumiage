@@ -6,13 +6,10 @@ class Controller_Member_Mypage extends Controller_Member
     {
         $data['user_id'] = Arr::get(Auth::get_user_id(), 1);
         $data['username'] = Auth::get_screen_name();
-        // GETパラメータを取得
-        $currentNum = (!empty(Input::get('currentNum'))) ? Input::get('currentNum') : 0;
-        $this_term = (!empty($currentNum)) ? date('Y-m-d', strtotime(date('Y-m-d').$currentNum.'month')) : date('Y-m-d');
-        $current_year = date('Y', strtotime($this_term));
-        $current_month = date('-m', strtotime($this_term));
-        $month_count = date('t');
-        $feb = $current_year.'-02-01';
+        $current_year = date('Y');
+        $current_month = date('Y-m');
+        $month_count = date('t', strtotime($data['created_at']));
+        $feb = date('Y', strtotime($data['created_at'])).'-02-01';
         $year_count = 337 + date('t', strtotime($feb));
 
         try{
@@ -22,16 +19,17 @@ class Controller_Member_Mypage extends Controller_Member
                 'select' => array('text_num', 'created_at'),
                 'where' => array(
                     'user_id' => $data['user_id'],
-                    array('created_at', 'between', array($current_year.$current_month.'-01', $current_year.$current_month.'-31')),
+                    array('created_at', 'between', array($current_month.'-01', $current_month.'-31')),
                     'delete_flg' => 0
                 )
             ));
+            Log::debug(print_r($post_tdata, true));
             // 今月の合計文字数を取得する
             $post_month = \Model\Mdata::find(array(
                 'select' => array('month_sum', 'created_at'),
                 'where' => array(
                     'user_id' => $data['user_id'],
-                    'created_at' => $current_year.$current_month,
+                    'created_at' => $current_month,
                     'delete_flg' => 0
                 )
             ));
@@ -61,10 +59,6 @@ class Controller_Member_Mypage extends Controller_Member
         $view->set_global('post_tdata', $post_tdata);
         $view->set_global('post_month', $post_month);
         $view->set_global('post_year', $post_year);
-        $view->set_global('month_count', $month_count);
-        $view->set_global('year_count', $year_count);
-        $view->set_global('currentNum', $currentNum);
-        $view->set_global('this_term', $this_term);
 
         return $view;
     }

@@ -7,11 +7,10 @@ class Controller_Member_Mypage extends Controller_Member
         $data['user_id'] = Arr::get(Auth::get_user_id(), 1);
         $data['username'] = Auth::get_screen_name();
         // GETパラメータを取得
-        $currentNum = (!empty(Input::get('currentNum'))) ? Input::get('currentNum') : 0;
-        $this_term = (!empty($currentNum)) ? date('Y-m-d', strtotime(date('Y-m-d').$currentNum.'month')) : date('Y-m-d');
-        $current_year = date('Y', strtotime($this_term));
-        $current_month = date('-m', strtotime($this_term));
-        $month_count = date('t');
+        $get_month = (!empty(Input::get('current_month'))) ? Input::get('current_month') : date('-m');
+        $current_year = date('Y');
+        $current_month = date('-m', strtotime($current_year.$get_month.'-01'));
+        $month_count = date('t'));
         $feb = $current_year.'-02-01';
         $year_count = 337 + date('t', strtotime($feb));
 
@@ -63,8 +62,7 @@ class Controller_Member_Mypage extends Controller_Member
         $view->set_global('post_year', $post_year);
         $view->set_global('month_count', $month_count);
         $view->set_global('year_count', $year_count);
-        $view->set_global('currentNum', $currentNum);
-        $view->set_global('this_term', $this_term);
+        $view->set_global('current_month', $current_month);
 
         return $view;
     }

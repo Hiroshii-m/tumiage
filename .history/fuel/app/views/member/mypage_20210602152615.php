@@ -17,9 +17,9 @@
                 <div class="c-container p-stack">
                     <h2 class="c-container__tit">積み上げデータ</h2>
                     <p class="p-stack__term">
-                        <a href="<?= Uri::create('member/mypage', array('page' => ($currentNum-1)), array('currentNum' => ':page')) ?>"><i class="fas fa-chevron-left"></i></a>
-                        <span class="p-stack__head"><?= date('Y年m月', strtotime($this_term)) ?></span>
-                        <a href="<?= Uri::create('member/mypage', array('page' => ($currentNum+1)), array('currentNum' => ':page')) ?>"><i class="fas fa-chevron-right"></i></a>
+                        <span><i class="fas fa-chevron-left"></i></span>
+                        <span class="p-stack__head"><?=date('Y年m月')?></span>
+                        <span><i class="fas fa-chevron-right"></i></span>
                     </p>
                     <div class="p-stack__body">
                         <div class="p-stack__area">
@@ -51,7 +51,7 @@
                                     <?php if(!empty($post_month)){ ?>
                                     <tr>
                                         <th class="p-stack__cell">月平均</th>
-                                        <th class="p-stack__cell"><?= round($post_month[0]->month_sum/$month_count, 2) ?></th>
+                                        <th class="p-stack__cell"><?= round($post_month[0]->month_sum/$month_count) ?></th>
                                     </tr>
                                     <tr>
                                         <th class="p-stack__cell">月合計</th>

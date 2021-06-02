@@ -8,12 +8,13 @@ class Controller_Member_Mypage extends Controller_Member
         $data['username'] = Auth::get_screen_name();
         // GETパラメータを取得
         $currentNum = (!empty(Input::get('currentNum'))) ? Input::get('currentNum') : 0;
-        $this_term = (!empty($currentNum)) ? date('Y-m-d', strtotime(date('Y-m-d').$currentNum.'month')) : date('Y-m-d');
-        $current_year = date('Y', strtotime($this_term));
-        $current_month = date('-m', strtotime($this_term));
+        $this_month = (!empty($currentNum)) ? date('Y-m-d', strtotime(date('Y-m-d').$currentNum.'month')) : date('Y-m-d');
+        $current_year = date('Y', strtotime($this_month));
+        $current_month = date('-m', strtotime($this_month));
         $month_count = date('t');
         $feb = $current_year.'-02-01';
         $year_count = 337 + date('t', strtotime($feb));
+        // Log::debug(print_r($this_month, true));
 
         try{
             DB::start_transaction();
@@ -22,7 +23,7 @@ class Controller_Member_Mypage extends Controller_Member
                 'select' => array('text_num', 'created_at'),
                 'where' => array(
                     'user_id' => $data['user_id'],
-                    array('created_at', 'between', array($current_year.$current_month.'-01', $current_year.$current_month.'-31')),
+                    array('created_at', 'between', array(date('Y-m', strtotime($this_month)).'-01', date('Y-m', strtotime($this_month)).'-31')),
                     'delete_flg' => 0
                 )
             ));
@@ -64,7 +65,6 @@ class Controller_Member_Mypage extends Controller_Member
         $view->set_global('month_count', $month_count);
         $view->set_global('year_count', $year_count);
         $view->set_global('currentNum', $currentNum);
-        $view->set_global('this_term', $this_term);
 
         return $view;
     }

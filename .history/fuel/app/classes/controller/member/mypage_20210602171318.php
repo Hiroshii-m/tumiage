@@ -14,6 +14,7 @@ class Controller_Member_Mypage extends Controller_Member
         $month_count = date('t');
         $feb = $current_year.'-02-01';
         $year_count = 337 + date('t', strtotime($feb));
+        // Log::debug(print_r($this_month, true));
 
         try{
             DB::start_transaction();

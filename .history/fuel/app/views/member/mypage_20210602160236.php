@@ -17,9 +17,9 @@
                 <div class="c-container p-stack">
                     <h2 class="c-container__tit">積み上げデータ</h2>
                     <p class="p-stack__term">
-                        <a href="<?= Uri::create('member/mypage', array('page' => ($currentNum-1)), array('currentNum' => ':page')) ?>"><i class="fas fa-chevron-left"></i></a>
-                        <span class="p-stack__head"><?= date('Y年m月', strtotime($this_term)) ?></span>
-                        <a href="<?= Uri::create('member/mypage', array('page' => ($currentNum+1)), array('currentNum' => ':page')) ?>"><i class="fas fa-chevron-right"></i></a>
+                        <a href="<?= Uri::create('member/mypage', array('month' => ($current_month - 1)), array('current_month' => ':month')) ?>"><i class="fas fa-chevron-left"></i></a>
+                        <span class="p-stack__head"><?=date('Y年m月')?></span>
+                        <a href=""><i class="fas fa-chevron-right"></i></a>
                     </p>
                     <div class="p-stack__body">
                         <div class="p-stack__area">

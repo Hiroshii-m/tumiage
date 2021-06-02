@@ -14,6 +14,7 @@ class Controller_Member_Mypage extends Controller_Member
         $month_count = date('t');
         $feb = $current_year.'-02-01';
         $year_count = 337 + date('t', strtotime($feb));
+        // Log::debug(print_r($this_month, true));
 
         try{
             DB::start_transaction();
@@ -22,7 +23,7 @@ class Controller_Member_Mypage extends Controller_Member
                 'select' => array('text_num', 'created_at'),
                 'where' => array(
                     'user_id' => $data['user_id'],
-                    array('created_at', 'between', array($current_year.$current_month.'-01', $current_year.$current_month.'-31')),
+                    array('created_at', 'between', array(date('Y-m', $current_year.$current_month.'-01', $current_year.$current_month.'-31')),
                     'delete_flg' => 0
                 )
             ));
@@ -64,7 +65,6 @@ class Controller_Member_Mypage extends Controller_Member
         $view->set_global('month_count', $month_count);
         $view->set_global('year_count', $year_count);
         $view->set_global('currentNum', $currentNum);
-        $view->set_global('this_term', $this_term);
 
         return $view;
     }

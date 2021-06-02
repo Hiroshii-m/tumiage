@@ -688,8 +688,8 @@ i {
 }
 @media screen and (max-width: 414px) {
   .c-container__tit {
-    font-size: 18px;
-    padding: 5px 10px;
+    font-size: 20px;
+    padding: 0 10px;
   }
 }
 .c-container__btn {
@@ -901,16 +901,6 @@ i {
 .p-stack__area {
   display: flex;
   justify-content: space-around;
-}
-@media screen and (max-width: 414px) {
-  .p-stack__area {
-    display: block;
-  }
-}
-@media screen and (max-width: 414px) {
-  .p-stack__table {
-    margin: 20px auto;
-  }
 }
 
 .u-upArrow {

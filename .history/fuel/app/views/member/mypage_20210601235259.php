@@ -17,28 +17,28 @@
                 <div class="c-container p-stack">
                     <h2 class="c-container__tit">積み上げデータ</h2>
                     <p class="p-stack__term">
-                        <a href="<?= Uri::create('member/mypage', array('page' => ($currentNum-1)), array('currentNum' => ':page')) ?>"><i class="fas fa-chevron-left"></i></a>
-                        <span class="p-stack__head"><?= date('Y年m月', strtotime($this_term)) ?></span>
-                        <a href="<?= Uri::create('member/mypage', array('page' => ($currentNum+1)), array('currentNum' => ':page')) ?>"><i class="fas fa-chevron-right"></i></a>
+                        <span><i class="fas fa-chevron-left"></i></span>
+                        <span class="p-stack__head"><?=date('Y年m月')?></span>
+                        <span><i class="fas fa-chevron-right"></i></span>
                     </p>
                     <div class="p-stack__body">
                         <div class="p-stack__area">
                             <table class="p-stack__table">
                                 <tbody>
-                                    <tr class="u-text-center">
+                                    <tr>
                                         <th class="p-stack__cell">日付</th>
                                         <th class="p-stack__cell">文字数</th>
                                         <th class="p-stack__cell">増加率</th>
                                     </tr>
                                     <!-- 今月のデータを全て表示 -->
-                                    <?php if(!empty($post_tdata)){ ?>
-                                        <?php foreach($post_tdata as $key => $val): ?>
+                                        <?php foreach($post_tdata as $key => $val): ?>                                    
                                         <tr>
-                                            <th class="p-stack__cell"><?=date('m/d', strtotime($val['created_at']))?></th>
-                                            <th class="p-stack__cell"><?=$val['text_num']?></th>
-                                            <th class="p-stack__cell"><?= (!empty($post_tdata[$key-1]['text_num'])) ? $val['text_num'] - $post_tdata[$key - 1]['text_num'] : '-'; ?></th>
+                                            <th class="p-stack__cell"><?=$post_tdata[$key]->created_at?></th>
+                                            <th class="p-stack__cell"><?=$post_tdata[$key]->text_num?></th>
+                                            <th class="p-stack__cell">+5</th>
                                         </tr>
                                         <?php endforeach; ?>
+                                    <?php if(!empty($post_tdata)){ ?>
                                     <?php } ?>
                                 </tbody>
                             </table>
@@ -48,26 +48,22 @@
                                         <th class="p-stack__cell">項目</th>
                                         <th class="p-stack__cell">文字数</th>
                                     </tr>
-                                    <?php if(!empty($post_month)){ ?>
                                     <tr>
                                         <th class="p-stack__cell">月平均</th>
-                                        <th class="p-stack__cell"><?= round($post_month[0]->month_sum/$month_count, 2) ?></th>
+                                        <th class="p-stack__cell">100011</th>
                                     </tr>
                                     <tr>
                                         <th class="p-stack__cell">月合計</th>
-                                        <th class="p-stack__cell"><?= $post_month[0]->month_sum ?></th>
+                                        <th class="p-stack__cell">10000</th>
                                     </tr>
-                                    <?php } ?>
-                                    <?php if(!empty($post_year)){ ?>
                                     <tr>
                                         <th class="p-stack__cell">年平均</th>
-                                        <th class="p-stack__cell"><?= round($post_year[0]->year_sum/$year_count, 2) ?></th>
+                                        <th class="p-stack__cell">100011</th>
                                     </tr>
                                     <tr>
                                         <th class="p-stack__cell">年合計</th>
-                                        <th class="p-stack__cell"><?= $post_year[0]->year_sum ?></th>
+                                        <th class="p-stack__cell">10000</th>
                                     </tr>
-                                    <?php } ?>
                                 </tbody>
                             </table>
                         </div>

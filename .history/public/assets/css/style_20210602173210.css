@@ -689,7 +689,7 @@ i {
 @media screen and (max-width: 414px) {
   .c-container__tit {
     font-size: 18px;
-    padding: 5px 10px;
+    padding: 0 10px;
   }
 }
 .c-container__btn {
@@ -905,11 +905,6 @@ i {
 @media screen and (max-width: 414px) {
   .p-stack__area {
     display: block;
-  }
-}
-@media screen and (max-width: 414px) {
-  .p-stack__table {
-    margin: 20px auto;
   }
 }
 
