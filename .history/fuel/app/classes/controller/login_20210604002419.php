@@ -15,12 +15,7 @@ class Controller_Login extends Controller
         }
 
         // 1. 入力項目の作成
-        $form = Fieldset::forge('loginform', array(
-            'form_attributes' => array(
-                'class' => 'u-login-form'
-                )
-            )
-        );
+        $form = Fieldset::forge('loginform');
         $form->add('userdata', 'ユーザー名またはメールアドレス', array('class'=>'c-form__input', 'type'=>'text'))
             ->add_rule('required')
             ->add_rule('min_length', 1)
@@ -31,6 +26,9 @@ class Controller_Login extends Controller
             ->add_rule('max_length', self::PASS_LENGTH_MAX)
             ->add_rule('valid_string', array('class'=>'c-form__submit', 'alpha', 'numeric', 'dashes', 'utf8'));
         $form->add('pass_save', '次回ログインを省略する', array('class'=>'c-form__check', 'type'=>'checkbox'));
+            ->set_config(array(
+                'field_template' => "\t\t<div>\n\t\t\t<label class=\"{error_class}\">{label}{required}</label>\n\t\t\t<span class=\"{error_class}\">{field} <span>{description}</span> {error_msg}</span>\n\t\t</div>\n"
+            ))
         $form->add('submit', '', array('class'=>'c-form__submit', 'type'=>'submit', 'value'=>'ログイン'));
         // 2. 入力POSTされた場合
         if(Input::method() === 'POST'){

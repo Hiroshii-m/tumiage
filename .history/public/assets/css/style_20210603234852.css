@@ -838,6 +838,7 @@ i {
   display: inline;
   width: 20px;
   margin-right: 10px;
+  float: right;
 }
 .c-form__submit {
   width: 100%;
@@ -928,7 +929,7 @@ i {
   }
 }
 
-.u-flex, .u-flex-center, .u-flex-end {
+.u-flex, .u-flex-center {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -974,12 +975,6 @@ i {
 
 .u-text-center {
   text-align: center;
-}
-
-.u-login-form > div:nth-child(3) {
-  display: flex;
-  justify-content: flex-end;
-  flex-flow: row-reverse;
 }
 
 /*# sourceMappingURL=style.css.map */

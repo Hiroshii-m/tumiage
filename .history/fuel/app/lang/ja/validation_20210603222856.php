@@ -15,5 +15,5 @@ return array(
     'numeric_max'       => ':label は、:param:1 より小さい数値を入力して下さい。',
     'valid_string'      => ':label は、:param:2 で入力して下さい。',
     'unique_email'      => ':label は、既に登録されています。',
-    'unique_username'   => ':label は、既に登録されています。',
+    'unique_username'      => ':label は、既に登録されています。',
 );

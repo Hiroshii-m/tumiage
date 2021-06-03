@@ -11,18 +11,16 @@ class Controller_Signup extends Controller
         $formData = '';
         // 新しいFieldsetインスタンスを格納
         $form = Fieldset::forge('signupform');
-        $form->add_model('MyValidation');
         // 項目設定
         $form->add('username', 'ユーザー名', array('class'=>'c-form__input', 'type'=>'text', 'placeholder'=>'ユーザー名'))
             ->add_rule('required')
             ->add_rule('min_length', 1)
-            ->add_rule('max_length', 50)
-            ->add_rule('unique_username');
+            ->add_rule('max_length', 50);
         $form->add('email', 'Email', array('class'=>'c-form__input', 'type'=>'email', 'placeholder'=>'メールアドレス'))
             ->add_rule('required')
             ->add_rule('min_length', 1)
             ->add_rule('max_length', 255)
-            ->add_rule('valid_email')
+            ->add_rule('valid_email');
             ->add_rule('unique_email');
         $form->add('password', 'パスワード', array('class'=>'c-form__input', 'type'=>'password', 'placeholder'=>'パスワード'))
             ->add_rule('required')

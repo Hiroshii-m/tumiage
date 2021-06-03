@@ -835,7 +835,6 @@ i {
   height: 100%;
 }
 .c-form__check {
-  display: inline;
   width: 20px;
   margin-right: 10px;
 }
@@ -974,12 +973,6 @@ i {
 
 .u-text-center {
   text-align: center;
-}
-
-.u-login-form > div:nth-child(3) {
-  display: flex;
-  justify-content: flex-end;
-  flex-flow: row-reverse;
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -16,8 +16,7 @@ class Controller_Signup extends Controller
         $form->add('username', 'ユーザー名', array('class'=>'c-form__input', 'type'=>'text', 'placeholder'=>'ユーザー名'))
             ->add_rule('required')
             ->add_rule('min_length', 1)
-            ->add_rule('max_length', 50)
-            ->add_rule('unique_username');
+            ->add_rule('max_length', 50);
         $form->add('email', 'Email', array('class'=>'c-form__input', 'type'=>'email', 'placeholder'=>'メールアドレス'))
             ->add_rule('required')
             ->add_rule('min_length', 1)

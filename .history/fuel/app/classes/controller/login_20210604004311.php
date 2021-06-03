@@ -15,12 +15,10 @@ class Controller_Login extends Controller
         }
 
         // 1. 入力項目の作成
-        $form = Fieldset::forge('loginform', array(
-            'form_attributes' => array(
-                'class' => 'u-login-form'
-                )
-            )
-        );
+        $form = Fieldset::forge('loginform');
+        $form->passs_save->set_attribute(array(
+            'class' => 'u-flex-end'
+        ));
         $form->add('userdata', 'ユーザー名またはメールアドレス', array('class'=>'c-form__input', 'type'=>'text'))
             ->add_rule('required')
             ->add_rule('min_length', 1)

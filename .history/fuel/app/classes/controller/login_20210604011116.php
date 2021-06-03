@@ -17,7 +17,9 @@ class Controller_Login extends Controller
         // 1. 入力項目の作成
         $form = Fieldset::forge('loginform', array(
             'form_attributes' => array(
-                'class' => 'u-login-form'
+                'id' => 'edit_article_form',
+                'name' => 'edit_article',
+                'style' => 'div:nth-of-type(3){display:flex;justify-content:flex-end;}'
                 )
             )
         );

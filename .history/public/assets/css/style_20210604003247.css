@@ -976,10 +976,4 @@ i {
   text-align: center;
 }
 
-.u-login-form > div:nth-child(3) {
-  display: flex;
-  justify-content: flex-end;
-  flex-flow: row-reverse;
-}
-
 /*# sourceMappingURL=style.css.map */
