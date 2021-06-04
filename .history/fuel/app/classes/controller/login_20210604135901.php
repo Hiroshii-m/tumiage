@@ -32,7 +32,7 @@ class Controller_Login extends Controller
             ->add_rule('min_length', self::PASS_LENGTH_MIN)
             ->add_rule('max_length', self::PASS_LENGTH_MAX)
             ->add_rule('valid_string', array('class'=>'c-form__submit', 'alpha', 'numeric', 'dashes', 'utf8'));
-        $form->add('remember', '次回ログインを省略する', array('class'=>'c-form__check', 'type'=>'checkbox', 'value'=>'true'));
+        $form->add('remember', '次回ログインを省略する', array('class'=>'c-form__check', 'type'=>'checkbox'));
         $form->add('submit', '', array('class'=>'c-form__submit', 'type'=>'submit', 'value'=>'ログイン'));
         // 2. 入力POSTされた場合
         if(Input::method() === 'POST'){
@@ -47,7 +47,9 @@ class Controller_Login extends Controller
                     if($formData['remember']){
                         // ログイン保持する
                         Auth::remember_me();
+                        Log::debug('ログイン保持をします.');
                     }
+                    Log::debug('ログインするよ');
 
                     Session::set_flash('sucMsg', 'ログインに成功しました。');
                     // マイページへ遷移

@@ -37,6 +37,7 @@ class Controller_Login extends Controller
         // 2. 入力POSTされた場合
         if(Input::method() === 'POST'){
             $val = $form->validation();
+            Log::debug(print_r(Input::post(), true));
             // 3. バリデーション成功だった場合
             if($val->run()){
                 $formData = $val->validated();
@@ -47,7 +48,9 @@ class Controller_Login extends Controller
                     if($formData['remember']){
                         // ログイン保持する
                         Auth::remember_me();
+                        Log::debug('ログイン保持をします.');
                     }
+                    Log::debug(print_r($formData['remember'], true));
 
                     Session::set_flash('sucMsg', 'ログインに成功しました。');
                     // マイページへ遷移
