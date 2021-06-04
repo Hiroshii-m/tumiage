@@ -23,17 +23,17 @@ if(!empty($errMsg)):
             <ul class="c-header__list u-flex js-header-list">
                 <?php if(!Auth::check()){ ?>
                 <li class="c-header__item">
-                    <a href=" <?=Uri::create('login') ?>" class="c-header__text">ログイン</a>
+                    <a href="<?=Uri::create('login')?>" class="c-header__text">ログイン</a>
                 </li>
                 <li class="c-header__item">
-                    <a href=" <?=Uri::create('signup') ?>" class="c-header__text">ユーザー登録</a>
+                    <a href="signup.php" class="c-header__text">ユーザー登録</a>
                 </li>
                 <?php }else{ ?>
                 <li class="c-header__item">
-                    <a href="<?= Uri::create('member/mypage') ?>" class="c-header__text">マイページ</a>
+                    <a href="mypage.php" class="c-header__text">マイページ</a>
                 </li>
                 <li class="c-header__item">
-                    <a href="<?= Uri::create('member/logout') ?>" class="c-header__text">ログアウト</a>
+                    <a href="logout.php" class="c-header__text">ログアウト</a>
                 </li>
                 <?php } ?>
             </ul>

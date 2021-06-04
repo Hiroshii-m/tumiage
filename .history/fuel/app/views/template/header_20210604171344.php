@@ -33,7 +33,7 @@ if(!empty($errMsg)):
                     <a href="<?= Uri::create('member/mypage') ?>" class="c-header__text">マイページ</a>
                 </li>
                 <li class="c-header__item">
-                    <a href="<?= Uri::create('member/logout') ?>" class="c-header__text">ログアウト</a>
+                    <a href="logout.php" class="c-header__text">ログアウト</a>
                 </li>
                 <?php } ?>
             </ul>
