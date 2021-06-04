@@ -14,10 +14,9 @@ class MyValidation {
         return !($result->count() > 0); // 取得件数が0より多い場合、falseを返す
     }
     // 古いパスワードがあっているか
-    public static function _validation_match_passold($pass_old, $u_id){
-        $result = DB::select("password")
+    public static function _validation_match_oldpass($pass_old, $u_id){
+        $result = DB::select("username")
                 ->where('id', '=', $u_id)
                 ->from('users')->execute();
-        return !(password_verify($pass_old, $result[0]['password'])); // パスワードが間違っていれば、false
     }
 }

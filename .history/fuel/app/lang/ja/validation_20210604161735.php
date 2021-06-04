@@ -17,4 +17,5 @@ return array(
     'unique_email'      => ':label は、既に登録されています。',
     'unique_username'   => 'その:label は、既に使用されています。使用されていないユーザーネームにしてください。',
     'match_passold'     => ':label が、誤っています。再度、確認してください。',
+    'dont_match_field'  => ':label は、古いパスワードと同じです。新しい値を入力してください。',
 );

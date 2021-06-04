@@ -15,9 +15,8 @@ class MyValidation {
     }
     // 古いパスワードがあっているか
     public static function _validation_match_passold($pass_old, $u_id){
-        $result = DB::select("password")
+        $result = DB::select("username")
                 ->where('id', '=', $u_id)
                 ->from('users')->execute();
-        return !(password_verify($pass_old, $result[0]['password'])); // パスワードが間違っていれば、false
     }
 }

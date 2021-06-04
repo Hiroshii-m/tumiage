@@ -16,5 +16,5 @@ return array(
     'valid_string'      => ':label は、半角英数字 で入力して下さい。',
     'unique_email'      => ':label は、既に登録されています。',
     'unique_username'   => 'その:label は、既に使用されています。使用されていないユーザーネームにしてください。',
-    'match_passold'     => ':label が、誤っています。再度、確認してください。',
+    'pass_old'          => ':label が、誤っています。再度、確認してください。',
 );

@@ -20,4 +20,11 @@ class MyValidation {
                 ->from('users')->execute();
         return !(password_verify($pass_old, $result[0]['password'])); // パスワードが間違っていれば、false
     }
+    // 古いパスワードと異なっているか
+    public static function _validation_dont_match_pass($pass_new, $u_id){
+        $result = DB::select("password")
+                ->where('id', '=', $u_id)
+                ->from('users')->execute();
+        return (password_verify($pass_new, $result[0]['password'])); // パスワードが同じであれば、false
+    }
 }

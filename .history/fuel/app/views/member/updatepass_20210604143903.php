@@ -1,6 +1,6 @@
 <main id="l-main">
     <div class="c-form js-sp-menu-target">
-        <h2 class="c-form__title">ユーザー登録</h2>
+        <h2 class="c-form__title">パスワード変更</h2>
         <div class="u-err-msg">
             <?php if(!empty($error)): ?>
                 <?php foreach($error as $key=>$val): ?>
@@ -8,7 +8,6 @@
                 <?php endforeach; ?>
             <?php endif; ?>
         </div>
-        <?=$signupform?>
-        <p>*一度登録したユーザーネームは変更できませんので、お気をつけください。</p>
+        <?=$edituserform?>
     </div>
 </main>

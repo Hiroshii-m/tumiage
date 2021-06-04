@@ -6,7 +6,7 @@
                 <a href="registstack.php" class="c-sidebar__text">今日の積み上げを記録</a>
             </li>
             <li class="c-sidebar__list">
-                <a href="updatepass.php" class="c-sidebar__text">パスワードを変更する</a>
+                <a href="edituser.php" class="c-sidebar__text">パスワードを変更する</a>
             </li>
         </ul>
     </aside>

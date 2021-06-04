@@ -10,8 +10,7 @@ CREATE TABLE `users`(
     `login_hash`  VARCHAR(255) NOT NULL,
     `profile_fields` TEXT NOT NULL,
     `delete_flg` BOOLEAN DEFAULT 0 NOT NULL,
-    `created_at` INT(11) NOT NULL,
-    `updated_at` INT(11) NOT NULL
+    `created_at` INT(11) NOT NULL
 )ENGINE=INNODB DEFAULT CHARSET=utf8;
 -- テーブル名 tdata
 CREATE TABLE `tdata`(

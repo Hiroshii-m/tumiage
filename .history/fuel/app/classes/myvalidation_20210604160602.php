@@ -18,6 +18,10 @@ class MyValidation {
         $result = DB::select("password")
                 ->where('id', '=', $u_id)
                 ->from('users')->execute();
-        return !(password_verify($pass_old, $result[0]['password'])); // パスワードが間違っていれば、false
+        return (password_verify($pass_old, $result[0]['password']));
+    }
+    // 同じ値だった場合、エラー
+    public static function _validation_dont_match_field($pass_new, $pass_old){
+        return !($pass_old === $pass_new);
     }
 }
