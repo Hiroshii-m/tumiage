@@ -16,6 +16,7 @@ class MyValidation {
     // 古いパスワードがあっているか
     public static function _validation_match_pass_old($pass_old, $username){
         // Validation::active()->set_message('match_pass_old', '古いパスワードが、誤っています。再度、確認してください。');
+        return Auth::validate_user($username, $pass_old); // 認証に失敗すれば、falseを返す
         if(Auth::validate_user($username, $pass_old)){
             return true;
         }else{
@@ -24,6 +25,7 @@ class MyValidation {
     }
     // 古いパスワードのままじゃないかどうか
     public static function _validation_is_pass_new($pass_new, $username){
+        return !Auth::validate_user($username, $pass_new); // 認証に成功（古いパスワードのままの場合）すれば、falseを返す
         if(!Auth::validate_user($username, $pass_new)){
             return true;
         }else{

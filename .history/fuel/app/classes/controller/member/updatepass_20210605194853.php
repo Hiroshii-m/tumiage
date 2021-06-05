@@ -42,7 +42,6 @@ class Controller_Member_Updatepass extends Controller_Member
                 // ユーザー登録
                 $formData = $val->validated();
                 $auth = Auth::instance();
-                Log::debug(print_r($formData['pass_old'], true));
                 if($auth->change_password($formData['pass_old'], $formData['pass_new'], $data['username'])){
                     $auth->login($data['username'], $formData['pass_new']);
                     Session::set_flash('sucMsg', 'パスワード変更に成功しました。');

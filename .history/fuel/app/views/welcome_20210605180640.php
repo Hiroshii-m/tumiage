@@ -3,7 +3,7 @@
         <h4>本サイトにお越しくださり、ありがとうございます。</h4>
         <h4>本サイトでは、作家さん、学生、サラリーマンの方が日々の記録を手助けします。</h4><br><br>
         <p>以下のボタンからユーザー登録、ログインをして利用することができます。</p><br>
-        <a href="<?= Uri::create('signup') ?>" class="c-form__submit">ユーザー登録</a>
+        <a　href="<?= Uri::create('signup') ?>" class="c-form__submit">ユーザー登録</a><br><br>
         <a href="<?= Uri::create('login') ?>" class="c-form__submit">ログイン</a>
         <br><br>
         <div><?= Asset::img('pic2.png') ?></div>

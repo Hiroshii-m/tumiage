@@ -15,19 +15,16 @@ class MyValidation {
     }
     // 古いパスワードがあっているか
     public static function _validation_match_pass_old($pass_old, $username){
-        // Validation::active()->set_message('match_pass_old', '古いパスワードが、誤っています。再度、確認してください。');
-        if(Auth::validate_user($username, $pass_old)){
-            return true;
-        }else{
-            return false;
-        }
-    }
-    // 古いパスワードのままじゃないかどうか
-    public static function _validation_is_pass_new($pass_new, $username){
-        if(!Auth::validate_user($username, $pass_new)){
-            return true;
-        }else{
-            return false;
-        }
+        Validation::active()->set_message('match_pass_old', '古いパスワードが、誤っています。再度、確認してください。');
+        return Auth::validate_user($username, $pass_old);
+        // $result = DB::select("password")
+        //         ->where('id', '=', $u_id)
+        //         ->from('users')->execute();
+        // // return (password_verify($pass_old, $result[0]['password'])); // パスワードが間違っていれば、false
+        // if(password_verify($pass_old, $result[0]['password'])){
+        //     return true;
+        // }else{
+        //     return false;
+        // }
     }
 }

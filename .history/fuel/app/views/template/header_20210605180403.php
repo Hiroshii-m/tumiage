@@ -26,7 +26,7 @@ if(!empty($errMsg)):
                     <a href="<?= Uri::create('login') ?>" class="c-header__text">ログイン</a>
                 </li>
                 <li class="c-header__item">
-                    <a href="<?= Uri::create('signup') ?>" class="c-header__text">ユーザー登録</a>
+                    <a href=" <?= Uri::create('signup') ?>" class="c-header__text">ユーザー登録</a>
                 </li>
                 <?php }else{ ?>
                 <li class="c-header__item">

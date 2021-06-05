@@ -20,13 +20,12 @@ class Controller_Member_Updatepass extends Controller_Member
             ->add_rule('min_length', self::PASS_LENGTH_MIN)
             ->add_rule('max_length', self::PASS_LENGTH_MAX)
             ->add_rule('valid_string', array('alpha', 'numeric', 'dashes', 'utf8'))
-            ->add_rule('match_pass_old', $data['username']);
+            ->add_rule('match_pass_old', $data['user_id']);
         $form->add('pass_new', '新しいパスワード', array('class'=>'c-form__input', 'type'=>'password', 'placeholder'=>'新しいパスワード'))
             ->add_rule('required')
             ->add_rule('min_length', self::PASS_LENGTH_MIN)
             ->add_rule('max_length', self::PASS_LENGTH_MAX)
-            ->add_rule('valid_string', array('alpha', 'numeric', 'dashes', 'utf8'))
-            ->add_rule('is_pass_new', $data['username']);
+            ->add_rule('valid_string', array('alpha', 'numeric', 'dashes', 'utf8'));
         $form->add('password_re', 'パスワード（再入力）', array('class'=>'c-form__input', 'type'=>'password', 'placeholder'=>'パスワード（再入力）'))
             ->add_rule('match_field', 'pass_new')
             ->add_rule('required')
@@ -42,7 +41,6 @@ class Controller_Member_Updatepass extends Controller_Member
                 // ユーザー登録
                 $formData = $val->validated();
                 $auth = Auth::instance();
-                Log::debug(print_r($formData['pass_old'], true));
                 if($auth->change_password($formData['pass_old'], $formData['pass_new'], $data['username'])){
                     $auth->login($data['username'], $formData['pass_new']);
                     Session::set_flash('sucMsg', 'パスワード変更に成功しました。');
