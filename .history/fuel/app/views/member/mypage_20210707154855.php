@@ -10,7 +10,6 @@
                             <span>記録アップ！は、セキュリティ強化いたしました。新しいサイトは<a class="u-anchor" href="https://smart-moji-5568.readymade.jp/output2/tumiage/public/welcome" >こちら</a>。</span>
                         </li>
                         <p>新しいサイトでも登録していただいたデータは引き続きご利用いただけますので、ご安心ください。</p>
-                        <p>※URLに鍵マークがついていれば、新しいページへ遷移できています。</p>
                     </ul>
                 </div>
             </section><!-- /ニュース -->

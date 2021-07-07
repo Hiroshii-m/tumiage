@@ -6,11 +6,9 @@
                     <h2 class="c-container__tit">お知らせ</h2>
                     <ul class="c-news__body">
                         <li>
-                            <span class="c-news__date">2021/07/07</span>
-                            <span>記録アップ！は、セキュリティ強化いたしました。新しいサイトは<a class="u-anchor" href="https://smart-moji-5568.readymade.jp/output2/tumiage/public/welcome" >こちら</a>。</span>
+                            <span class="c-news__date">2021/06/11</span>
+                            <span>現在、サイト運営中です。</span>
                         </li>
-                        <p>新しいサイトでも登録していただいたデータは引き続きご利用いただけますので、ご安心ください。</p>
-                        <p>※URLに鍵マークがついていれば、新しいページへ遷移できています。</p>
                     </ul>
                 </div>
             </section><!-- /ニュース -->

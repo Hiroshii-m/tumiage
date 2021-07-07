@@ -61,5 +61,19 @@ return array(
         'enable_cache' => true,
         'profiling'    => true,
     ),
-    
+    'lolipop' => array(
+        'type'        => 'pdo',
+        'connection'  => array(
+            'dsn'        => 'mysql:host=mysql153.phy.lolipop.lan;dbname=LAA1303831-tumiage;unix_socket=/var/lib/mysql/mysql.sock',
+            'username'   => 'LAA1303831',
+            'password'   => 'sakkasanhe',
+            'persistent' => false,
+            'compress'   => false,
+        ),
+        'identifier'   => '`',
+        'table_prefix' => '',
+        'charset'      => 'utf8',
+        'enable_cache' => true,
+        'profiling'    => false,
+    ),
 );
